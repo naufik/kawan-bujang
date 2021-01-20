@@ -1,0 +1,5 @@
+# Build Directory
+/target
+
+#Environment Variables
+.env
