@@ -11,7 +11,9 @@ use std::time::Duration;
 pub use crate::bot::config::*;
 
 fn main() {
-  let config: TelegramBotConfig = TelegramBotConfig::load_from_env();
+  let config: Option<TelegramBotConfig> = TelegramBotConfig::load_from_env();
+  
+  let config = config.expect("Check if both TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID exists.");
 
   init_bot(
     config.bot_token, config.chat_id
