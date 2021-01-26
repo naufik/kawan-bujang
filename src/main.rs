@@ -13,19 +13,17 @@ pub use crate::bot::config::*;
 fn main() {
   let config: Option<TelegramBotConfig> = TelegramBotConfig::load_from_env();
   
-  let config = config.expect("Check if both TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID exists.");
+  let config = config.expect("Check if both TELEGRAM_BOT_TOKEN and TELEGRAM_GROUP_CHAT_ID exists.");
 
-  init_bot(
-    config.bot_token, config.chat_id
-  )
+  init_bot(config)
 }
 
 // TODO: move this somewhere else!!!
-fn init_bot(_bot_token: String, _chat_id: String) {
+fn init_bot(config: TelegramBotConfig) {
   let mut scheduler = Scheduler::with_tz(chrono_tz::Asia::Jakarta);
 
-  let bot_token = _bot_token.clone();
-  let chat_id = _chat_id.clone();
+  let bot_token = config.bot_token.clone();
+  let chat_id = config.chat_id.clone();
 
   scheduler
     .every(1.day())
