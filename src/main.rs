@@ -8,14 +8,17 @@ use clokwerk::{Scheduler, TimeUnits};
 use std::thread;
 use std::time::Duration;
 
-pub use crate::bot::config::*;
+use crate::bot::*;
 
 fn main() {
   let config: Option<TelegramBotConfig> = TelegramBotConfig::load_from_env();
-  
-  let config = config.expect("Check if both TELEGRAM_BOT_TOKEN and TELEGRAM_GROUP_CHAT_ID exists.");
 
-  init_bot(config)
+  let config = config.unwrap_or_else(|| {
+    println!("Cannot run bot. Check if TELEGRAM_BOT_TOKEN and TELEGRAM_GROUP_CHAT_ID are both defined.");
+    std::process::exit(1);
+  });
+
+  init_bot(config);
 }
 
 // TODO: move this somewhere else!!!
