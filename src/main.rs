@@ -11,13 +11,15 @@ use std::time::Duration;
 use crate::bot::*;
 
 fn main() {
+  println!("[bujang] Starting operation, loading configuration");
   let config: Option<TelegramBotConfig> = TelegramBotConfig::load_from_env();
 
   let config = config.unwrap_or_else(|| {
-    println!("Cannot run bot. Check if TELEGRAM_BOT_TOKEN and TELEGRAM_GROUP_CHAT_ID are both defined.");
+    println!("Check if TELEGRAM_BOT_TOKEN and TELEGRAM_GROUP_CHAT_ID are both defined.");
     std::process::exit(1);
   });
 
+  println!("[bot] Configuration loaded. Starting initial loop.");
   init_bot(config);
 }
 

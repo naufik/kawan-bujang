@@ -54,6 +54,7 @@ pub fn bot_op(bot_token: &String, chat_id: &String) {
   let contents = result.text();
 
   if contents.is_ok() {
+    println!("[bujang] ran intent: scheduled-weather-update.");
     println!("{}", contents.unwrap());
   }
 }
